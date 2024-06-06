@@ -2,7 +2,7 @@ import { EventEmitter } from "https://deno.land/std@0.110.0/node/events.ts";
 
 import * as bunyan from "./bunyan.ts";
 
-export type { LoggerOptions, Serializers } from "./options.ts";
+import type { LoggerOptions, Serializers } from "./options.ts";
 
 export const levelFromName = {
   "trace": bunyan.TRACE,
@@ -23,3 +23,15 @@ export const nameFromLevel = {
 };
 
 export default bunyan;
+
+export class Logger extends EventEmitter {
+  constructor(_options: LoggerOptions) {
+    super();
+  }
+}
+
+export function createLogger(options: LoggerOptions): Logger {
+  return new Logger(options);
+}
+
+export type { LoggerOptions, Serializers };
